@@ -16,20 +16,28 @@ def draw_towers(prob):
             rect(cx - t_width / 2.0, cy, t_width, t_height)
 
 def setup():
-    global prob, solver
-    size(1600, 800)
-    colorMode(HSB, *[255] * 3)
+    global prob, solver, step, f
+    size(450, 150)
     noStroke()
+    colorMode(HSB, *[255] * 3)
+    step = 0
+    f = createFont("courier", 20)
     prob = [range(TOWERS, 0, -1), [], []]
-    solver = solve(prob, 0, 2, 1, TOWERS)
+    solver = enumerate(solve(prob, 0, 2, 1, TOWERS), 1)
 
 def draw():
+    global step
+    background(0)
+    fill(255)
+    textFont(f)
+    text("{:7.2%}".format(step / float((1 << TOWERS) - 1)), 0, 20)
+    text("{:6.2f}s".format(((1 << TOWERS) - 1 - step) / float(PER_FRAME * 60)), 0, 40)
     translate(0, height)
     scale(1, -1)
+    textFont(f, 20)
     for _ in xrange(PER_FRAME):
         try:
-            next(solver)
+            step, _ = next(solver)
         except StopIteration:
             break
-    background(0)
     draw_towers(prob)

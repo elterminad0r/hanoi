@@ -30,6 +30,7 @@ def solve(towers, start, goal, aux, n):
         towers[goal].append(towers[start].pop())
         yield start, goal
     else:
+        # "yield from" surrogates
         for s in solve(towers, start, aux, goal, n - 1):
             yield s
         towers[goal].append(towers[start].pop())
