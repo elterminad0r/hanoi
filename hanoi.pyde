@@ -1,6 +1,6 @@
 from han_framework import solve
 
-TOWERS = 14
+TOWERS = 18
 PER_FRAME = 10
 
 def draw_towers(prob):
@@ -32,7 +32,9 @@ def draw():
     textFont(f)
     rect(0, 0, width * step / float((1 << TOWERS) - 1), 5)
     text("{:7.2%}".format(step / float((1 << TOWERS) - 1)), 0, 25)
-    text("{:6.2f}s".format(((1 << TOWERS) - 1 - step) / float(PER_FRAME * 60)), 0, 45)
+    secs = ((1 << TOWERS) - 1 - step) / float(PER_FRAME * 60)
+    mins, secs = divmod(secs, 60)
+    text("{:.0f}m {:.0f}s".format(mins, secs), 0, 45)
     translate(0, height)
     scale(1, -1)
     textFont(f, 20)
