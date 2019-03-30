@@ -5,6 +5,13 @@ datastructures.
 
 import sys
 
+from smartparse import ArgumentParser
+
+def get_args():
+    parser = ArgumentParser(description=__doc__)
+    parser.add_argument("n", type=int, help="number of towers")
+    return parser.parse_args()
+
 def print_towers(problem):
     # To allow a Python2 script to import solve w/out compromise
     from itertools import chain, zip_longest
@@ -40,10 +47,15 @@ def solve(towers, start, goal, aux, n):
 
 
 if __name__ == "__main__":
-    n = 20
+    args = get_args()
+
+    n = args.n
     problem = [list(reversed(range(1, n + 1))), [], []]
 
-    for mov in solve(problem, 0, 2, 1, n):
-        print()
-        print_towers(problem)
-        assert_towers(problem)
+    for ind, mov in enumerate(solve(problem, 0, 2, 1, n)):
+        #print()
+        #print_towers(problem)
+        #assert_towers(problem)
+        pass
+
+    print("solved {} towers with {} moves".format(n, ind))
