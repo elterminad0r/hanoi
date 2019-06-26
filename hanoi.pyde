@@ -1,5 +1,3 @@
-# vim: ft=python
-
 from han_framework import solve
 
 TOWERS = 18
